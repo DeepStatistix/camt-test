@@ -11,7 +11,7 @@ Two errors act together when the winner among K candidate models is compared wit
 `camt` implements CAMT, a test that accounts for both. Labels may vary within a patient. The method is described in the accompanying
 manuscript (in preparation).
 
-Status: research software, version 0.1.0.
+Status: research software, version 0.1.1.
 
 ## Installation
 

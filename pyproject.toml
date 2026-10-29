@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "camt-test"
-version = "0.1.0"
+version = "0.1.1"
 description = "CAMT, the clustered AUC maximum test: patient-clustered, selection-adjusted test that the best of K models beats a baseline, with an audit of published claims"
 readme = "README.md"
 requires-python = ">=3.9"
@@ -22,8 +22,9 @@ classifiers = [
 [project.optional-dependencies]
 test = ["pytest"]
 
-# [project.urls]
-# Repository = "add the repository URL here"
+[project.urls]
+Repository = "https://github.com/DeepStatistix/camt-test"
+Issues = "https://github.com/DeepStatistix/camt-test/issues"
 
 [tool.setuptools.packages.find]
 where = ["src"]

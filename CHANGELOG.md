@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.1
+
+Project renamed to CAMT (clustered AUC maximum test); the distribution is `camt-test` and the import name is `camt`.
+Repository and issue links added to the package metadata. No change to the statistical code.
+
 ## 0.1.0
 
 First release.
