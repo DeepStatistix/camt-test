@@ -120,9 +120,9 @@ clustering-only, selection-only and proposed procedures for K = 1, 5 and 20, at 
 
 If you use this software, please cite it (see `CITATION.cff`) together with the accompanying manuscript:
 
-> Gul A. Valid inference for "best of K" model comparisons on patient-clustered diagnostic data. Manuscript in preparation.
+> Gul A. A clustered AUC maximum test (CAMT) for "best of K" model comparisons on patient-clustered diagnostic data. Manuscript in preparation.
 
-The archived release and its DOI are given in `CITATION.cff` once available.
+Archived release: [doi:10.5281/zenodo.23771271](https://doi.org/10.5281/zenodo.23771271) (version 0.1.1). See also `CITATION.cff`.
 
 ## Licence
 

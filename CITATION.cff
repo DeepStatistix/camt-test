@@ -15,5 +15,4 @@ keywords:
   - multiple comparisons
   - model comparison
 repository-code: "https://github.com/DeepStatistix/camt-test"
-# Add this line when the code is archived on Zenodo:
-# doi: "10.5281/zenodo.<number>"
+doi: "10.5281/zenodo.23771271"
