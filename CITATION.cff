@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it and the accompanying manuscript."
-title: "bestofk: patient-clustered, selection-adjusted tests of 'the best of K models beats a baseline'"
+title: "camt: the clustered AUC maximum test (CAMT) for the best of K models against a baseline"
 version: 0.1.0
 date-released: 2026-10-29
 authors:
@@ -15,5 +15,5 @@ keywords:
   - multiple comparisons
   - model comparison
 # Add these two lines when the code is public and archived:
-# repository-code: "https://github.com/<user>/bestofk"
+# repository-code: "https://github.com/<user>/camt"
 # doi: "10.5281/zenodo.<number>"

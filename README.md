@@ -1,4 +1,4 @@
-# bestofk
+# camt: the clustered AUC maximum test (CAMT)
 
 Tests of the claim that **the best of K models has a higher AUC than a baseline** on a test set that contains several images or
 records per patient, and a **summary-statistics audit** of published claims of this kind.
@@ -8,7 +8,7 @@ Two errors act together when the winner among K candidate models is compared wit
 1. observations from one patient are correlated, so a test that treats every image as independent understates the uncertainty;
 2. the winner is chosen among K candidates, so its apparent advantage is inflated even if all models are equally good.
 
-`bestofk` provides a test that accounts for both. Labels may vary within a patient. The method is described in the accompanying
+`camt` implements CAMT, a test that accounts for both. Labels may vary within a patient. The method is described in the accompanying
 manuscript (in preparation).
 
 Status: research software, version 0.1.0.
@@ -16,19 +16,20 @@ Status: research software, version 0.1.0.
 ## Installation
 
 ```bash
-pip install .            # from the repository root; requires Python >= 3.9, numpy and scipy
+pip install camt-test      # from PyPI; the import name is `camt`
+pip install .            # or from the repository root; requires Python >= 3.9, numpy and scipy
 pip install ".[test]"    # also installs pytest
 ```
 
 ## Quick start
 
 ```python
-from bestofk import best_of_k_test
+from camt import camt_test
 
 # scores:   array (n_images, 1 + K), one column per model; column 0 is the baseline
 # labels:   array (n_images,) of 0/1 image-level labels
 # patients: array (n_images,) of patient identifiers (the clusters)
-result = best_of_k_test(scores, labels, patients, baseline=0, n_boot=4000, seed=1)
+result = camt_test(scores, labels, patients, baseline=0, n_boot=4000, seed=1)
 print(result.summary())
 ```
 
@@ -59,7 +60,7 @@ All p-values are one-sided; the null hypothesis is that no candidate is better t
 
 | function | purpose |
 |---|---|
-| `best_of_k_test(scores, labels, patients, baseline=0, n_boot=4000, seed=None, influence_fn=None)` | the test; returns a `BestOfKResult` |
+| `camt_test(scores, labels, patients, baseline=0, n_boot=4000, seed=None, influence_fn=None)` | the test; returns a `CamtResult` |
 | `design_effect(scores, labels, patients, baseline=0)` | Kish cluster size, design effect and within-patient correlation of the AUC influence function, for each model and for each difference from the baseline |
 | `threshold_influence(thresholds, kind="balanced")` | influence function for sensitivity, specificity or balanced accuracy at operating points fixed in advance; pass it as `influence_fn` |
 | `audit_claim(p_naive, patients, images, K, rho=...)` | adjust a published p-value for clustering and for K, using only summary numbers |
@@ -71,8 +72,8 @@ All p-values are one-sided; the null hypothesis is that no candidate is better t
 For balanced accuracy at thresholds chosen in advance (for example on the training patients):
 
 ```python
-from bestofk import best_of_k_test, threshold_influence
-result = best_of_k_test(scores, labels, patients, influence_fn=threshold_influence(thresholds, kind="balanced"))
+from camt import camt_test, threshold_influence
+result = camt_test(scores, labels, patients, influence_fn=threshold_influence(thresholds, kind="balanced"))
 ```
 
 Thresholds estimated on the test sample itself are not covered.
@@ -80,7 +81,7 @@ Thresholds estimated on the test sample itself are not covered.
 ### Auditing a published claim
 
 ```python
-from bestofk import audit_claim
+from camt import audit_claim
 a = audit_claim(p_naive=0.0004, patients=40, images=3900, K=10, rho=0.1)
 a["p_bonferroni"]   # adjusted p-value if the within-patient correlation is 0.1 and 10 models were tried
 a["rho_star"]       # correlation above which the clustered p-value alone exceeds 0.05

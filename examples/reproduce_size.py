@@ -16,7 +16,7 @@ from concurrent.futures import ProcessPoolExecutor  # noqa: E402
 
 import numpy as np  # noqa: E402
 
-from bestofk import best_of_k_test  # noqa: E402
+from camt import camt_test  # noqa: E402
 
 
 def simulate(P, m, K, seed):
@@ -36,7 +36,7 @@ def simulate(P, m, K, seed):
 def one(args):
     P, m, K, boot, seed = args
     S, y, pid = simulate(P, m, K, seed)
-    r = best_of_k_test(S, y, pid, n_boot=boot, seed=seed, warn=False)
+    r = camt_test(S, y, pid, n_boot=boot, seed=seed, warn=False)
     return r.p_naive < 0.05, r.p_clustering_only < 0.05, r.p_selection_only < 0.05, r.p_value < 0.05
 
 

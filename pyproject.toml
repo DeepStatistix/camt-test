@@ -3,9 +3,9 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "bestofk"
+name = "camt-test"
 version = "0.1.0"
-description = "Patient-clustered, selection-adjusted tests of 'the best of K models beats a baseline' for the AUC, and a summary-statistics audit of published claims"
+description = "CAMT, the clustered AUC maximum test: patient-clustered, selection-adjusted test that the best of K models beats a baseline, with an audit of published claims"
 readme = "README.md"
 requires-python = ">=3.9"
 license = { text = "MIT" }

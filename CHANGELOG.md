@@ -4,7 +4,7 @@
 
 First release.
 
-- `best_of_k_test`: patient-clustered, selection-adjusted test of the best of K models against a baseline (AUC, or a metric at a
+- `camt_test`: patient-clustered, selection-adjusted test of the best of K models against a baseline (AUC, or a metric at a
   fixed operating point through `threshold_influence`), with a pruned variant, comparison analyses and warnings for small classes and
   very unequal cluster sizes.
 - `design_effect`: design effect and within-patient correlation of the AUC influence function.

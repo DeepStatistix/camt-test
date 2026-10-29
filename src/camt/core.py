@@ -8,7 +8,7 @@ import numpy as np
 from scipy.stats import norm, rankdata
 from scipy.stats import t as tdist
 
-__all__ = ["BestOfKResult", "best_of_k_test", "auc_influence", "threshold_influence", "design_effect"]
+__all__ = ["CamtResult", "camt_test", "auc_influence", "threshold_influence", "design_effect"]
 
 MIN_MINORITY_PATIENTS = 20          # below this, with many candidates, the test is liberal (paper, Section 5.3)
 MIN_EFFECTIVE_CLUSTERS = 100        # heuristic flag for very unequal cluster sizes (paper, Section 6.2); not a validated threshold
@@ -34,7 +34,7 @@ def threshold_influence(thresholds, kind="balanced"):
 
     ``kind`` is "balanced" (mean of sensitivity and specificity), "sensitivity" or "specificity". The thresholds must not be
     estimated from the test sample; thresholds chosen on the test sample add a quantile term that is not covered.
-    Pass the returned function as ``influence_fn`` to :func:`best_of_k_test`.
+    Pass the returned function as ``influence_fn`` to :func:`camt_test`.
     """
     thr = np.asarray(thresholds, dtype=float)
 
@@ -66,8 +66,8 @@ def _max_pvalue(G, se, z_obs, rng, n_boot, chunk=500):
 
 
 @dataclass
-class BestOfKResult:
-    """Result of :func:`best_of_k_test`. All p-values are one-sided (H0: no candidate is better than the baseline)."""
+class CamtResult:
+    """Result of :func:`camt_test`. All p-values are one-sided (H0: no candidate is better than the baseline)."""
 
     p_value: float                      # patient-clustered, adjusted for the number of candidates, small-class calibration
     p_value_pruned: float               # same, with clearly inferior candidates dropped from the null (pointwise valid only)
@@ -121,7 +121,7 @@ def _check_inputs(scores, labels, patients, baseline):
     return S, y.astype(int), pid
 
 
-def best_of_k_test(scores, labels, patients, baseline=0, n_boot=4000, seed=None, influence_fn=None, warn=True) -> BestOfKResult:
+def camt_test(scores, labels, patients, baseline=0, n_boot=4000, seed=None, influence_fn=None, warn=True) -> CamtResult:
     """Test whether the best of K candidate models has a higher AUC than the baseline.
 
     Parameters
@@ -186,7 +186,7 @@ def best_of_k_test(scores, labels, patients, baseline=0, n_boot=4000, seed=None,
         for w in notes:
             warnings.warn(w, stacklevel=2)
     best = int(np.argmax(z_c))
-    return BestOfKResult(
+    return CamtResult(
         p_value=float(p_main), p_value_pruned=float(p_pruned), p_naive=float(norm.sf(z_i.max())), p_clustering_only=float(norm.sf(z_c.max())),
         p_selection_only=float(p_sel), best=cand[best], auc=theta, baseline=baseline, candidates=cand, difference=D, se_clustered=se_c,
         se_image=se_i, n_images=n, n_patients=int(P), n_positive_patients=n1c, n_negative_patients=n0c, n_mixed_patients=mixed,
