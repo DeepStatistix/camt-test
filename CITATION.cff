@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it and the accompanying manuscript."
+title: "bestofk: patient-clustered, selection-adjusted tests of 'the best of K models beats a baseline'"
+version: 0.1.0
+date-released: 2026-10-29
+authors:
+  - family-names: Gul
+    given-names: Aqib
+license: MIT
+abstract: "Tests of the claim that the best of K models has a higher AUC than a baseline on a test set with several images per patient, and a summary-statistics audit of published claims."
+keywords:
+  - AUC
+  - clustered data
+  - winner's curse
+  - multiple comparisons
+  - model comparison
+# Add these two lines when the code is public and archived:
+# repository-code: "https://github.com/<user>/bestofk"
+# doi: "10.5281/zenodo.<number>"
